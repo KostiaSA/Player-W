@@ -66,10 +66,10 @@ export class LoginPage extends React.Component<ILoginPageProps, any> {
                         window.localStorage.setItem("password", appState.password);
                         appState.user = ans.user;
                         window.localStorage.setItem("user", appState.user!);
-                        appState.loadTablesFromLocalStore();
-                        appState.loadTablesFromServer();
-                        appState.activePage = appState.cardPage;
-                        appState.startSyncronization();
+
+                        appState.loadUserInfoFromServer();
+
+                        appState.activePage = appState.playlistSetupPage;
                     })
                     .catch((err: any) => {
                         this.httpRequestRunning = false;

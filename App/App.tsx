@@ -56,39 +56,39 @@ export class App extends React.Component<any, any> {
 
 
 
-        appState.cardPage = {
-            title: "cardPage",
-            icon: "fa-info-circle",
-            color: "royalblue",
-            content: <CardPage></CardPage>
-        }
-        this.pages.push(appState.cardPage);
-
-        appState.flagPage = {
-            icon: "fa-clock-o",
-            title: "flagPage",
-            color: "black",
-            content: <FlagPage></FlagPage>
-        }
-        this.pages.push(appState.flagPage);
-
-        appState.flagPage2 = {
-            title: "flagPage2",
-            icon: "fa-flag-checkered",
-            color: "green",
-            content: <FlagPage2></FlagPage2>
-        }
-        this.pages.push(appState.flagPage2);
-
-        appState.carsPage = {
-            title: "carsPage2",
-            icon: "fa-car",
-            color: "coral",
-            content: <CarsPage></CarsPage>
-        }
-        this.pages.push(appState.carsPage);
-
-
+        // appState.cardPage = {
+        //     title: "cardPage",
+        //     icon: "fa-info-circle",
+        //     color: "royalblue",
+        //     content: <CardPage></CardPage>
+        // }
+        // this.pages.push(appState.cardPage);
+        //
+        // appState.flagPage = {
+        //     icon: "fa-clock-o",
+        //     title: "flagPage",
+        //     color: "black",
+        //     content: <FlagPage></FlagPage>
+        // }
+        // this.pages.push(appState.flagPage);
+        //
+        // appState.flagPage2 = {
+        //     title: "flagPage2",
+        //     icon: "fa-flag-checkered",
+        //     color: "green",
+        //     content: <FlagPage2></FlagPage2>
+        // }
+        // this.pages.push(appState.flagPage2);
+        //
+        // appState.carsPage = {
+        //     title: "carsPage2",
+        //     icon: "fa-car",
+        //     color: "coral",
+        //     content: <CarsPage></CarsPage>
+        // }
+        // this.pages.push(appState.carsPage);
+        //
+        //
 
         appState.loginPage = {
             title: "Выход",

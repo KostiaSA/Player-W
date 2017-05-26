@@ -5,7 +5,8 @@ import {
     IRallySpecUch, ILoadRallySpecUchReq, LOAD_RALLYSPECUCH_CMD, ILoadRallySpecUchAns, IRallyPunkt, ILoadRallyPunktReq,
     LOAD_RALLYPUNKT_CMD, ILoadRallyPunktAns, ILegRegistration, ILoadLegRegistrationReq, LOAD_LEGREGISTRATION_CMD,
     ILoadLegRegistrationAns, LOAD_CHECKPOINTS_CMD, ILoadCheckPointsReq,
-    ILoadCheckPointsAns, ICheckPoint, ISaveCheckPointsReq, ISaveCheckPointsAns, SAVE_CHECKPOINTS_CMD
+    ILoadCheckPointsAns, ICheckPoint, ISaveCheckPointsReq, ISaveCheckPointsAns, SAVE_CHECKPOINTS_CMD, IGetPlayListReq,
+    GET_PLAYLIST, IGetPlayListAns, ISetPlayListReq, SET_PLAYLIST, ISetPlayListAns
 } from "./api/api";
 import {httpRequest} from "./utils/httpRequest";
 import {getRandomString} from "./utils/getRandomString";
@@ -508,15 +509,38 @@ export class AppState {
 
     }
 
-    startSyncronization() {
-        setInterval(() => {
-            this.loadTablesFromServer();
-        }, 60000);
+    async getPlaylist(): Promise<string> {
 
-        setInterval(() => {
-            this.save_CheckPoints_ToServer();
-        }, 5000);
+        let req: IGetPlayListReq = {
+            cmd: GET_PLAYLIST,
+            login: appState.login,
+            password: appState.password,
+        };
 
+        return httpRequest<IGetPlayListReq, IGetPlayListAns>(req)
+            .then((ans: IGetPlayListAns) => {
+                return ans.playList;
+            })
+            .catch((err: any) => {
+                console.error(err);
+            });
+    }
+
+    async setPlaylist(playList: string) {
+
+        let req: ISetPlayListReq = {
+            cmd: SET_PLAYLIST,
+            login: appState.login,
+            password: appState.password,
+            playList: playList
+        };
+
+        return httpRequest<ISetPlayListReq, ISetPlayListAns>(req);
+    }
+
+    async loadUserInfoFromServer() {
+        this.edemPlaylist = await this.getPlaylist();
+        this.edemPlaylistChanged = false;
     }
 }
 

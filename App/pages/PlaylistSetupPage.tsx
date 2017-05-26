@@ -38,12 +38,27 @@ export class PlaylistSetupPage extends React.Component<IPlaylistSetupPageProps, 
 
 
     @observable httpRequestRunning: boolean;
+    @observable saveError: string = "";
 
     handleButtonClick = () => {
 
         let timeIndex = setTimeout(() => {
             this.httpRequestRunning = true;
         }, 500);
+
+        appState.setPlaylist(appState.edemPlaylist)
+            .then(() => {
+                clearTimeout(timeIndex);
+                this.saveError = "";
+                this.httpRequestRunning = false;
+                appState.edemPlaylistChanged = false;
+                showToast("Плейлист успешно сохранен");
+            })
+            .catch((e) => {
+                clearTimeout(timeIndex);
+                this.httpRequestRunning = false;
+                this.saveError = e.toString();
+            })
 
         // httpRequest<IGetEncryptKeyReq,IGetEncryptKeyAns>({cmd: GET_ENCRYPT_KEY_CMD})
         //     .then((ans: IGetEncryptKeyAns) => {
@@ -94,7 +109,7 @@ export class PlaylistSetupPage extends React.Component<IPlaylistSetupPageProps, 
 
         let errorMessage = "";
         if (appState.edemPlaylistChanged) {
-            if (appState.edemPlaylist.length>0 && !this.isValidUrl(appState.edemPlaylist)) {
+            if (appState.edemPlaylist.length > 0 && !this.isValidUrl(appState.edemPlaylist)) {
                 errorMessage = "неверный формат ссылки";
             }
         }
@@ -122,7 +137,8 @@ export class PlaylistSetupPage extends React.Component<IPlaylistSetupPageProps, 
                                                 disabled={this.httpRequestRunning}
                                                 onChange={(e: any) => {
                                                     appState.edemPlaylist = e.target.value;
-                                                    appState.edemPlaylistChanged = true
+                                                    appState.edemPlaylistChanged = true;
+                                                    this.saveError = "";
                                                 }}
                                                 placeholder="пример: https://edem.tv/playlists/uplist/73112aa0039a45645609539a51a/edem_pl.m3u8"/>
                                             <div style={{fontSize: 13, color: "red"}}>{errorMessage}</div>
@@ -135,12 +151,13 @@ export class PlaylistSetupPage extends React.Component<IPlaylistSetupPageProps, 
                                     </div>
                                     <div className="form-group">
                                         <div className="col-sm-offset-3 col-sm-10">
+                                            <p style={{color: "red"}}>{this.saveError}</p>
                                             <div
                                                 className="btn btn-primary"
                                                 disabled={this.httpRequestRunning || !(appState.edemPlaylistChanged && this.isValidUrl(appState.edemPlaylist))}
                                                 onClick={() => {
                                                     if (appState.edemPlaylistChanged && this.isValidUrl(appState.edemPlaylist)) {
-                                                        showToast("Плейлист сохранен!");
+                                                        this.handleButtonClick();
                                                     }
                                                 }}
                                             >
