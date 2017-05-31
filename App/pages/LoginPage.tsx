@@ -125,6 +125,7 @@ export class LoginPage extends React.Component<ILoginPageProps, any> {
                         <p><strong>Buhta Player</strong> - это приложение для медиаплеера <strong>Xiaomi Mi Box 3</strong>. Оно позволяет просматривать
                             тв-передачи, транслируемые IPTV-сервисом ЭДЭМ (<strong>edem.tv</strong>)</p>
                         <p>Данный сайт (player.buhta.ru) используется для настройки <strong> уже установленного на медиаплеер Xiaomi</strong> приложения Buhta Player.</p>
+                        <p>Вопросы и пожелания оставляйте на нашей странице ВКонтакте <a href="https://vk.com/buhtaplayer">vk.com/buhtaplayer</a> </p>
                         <p>Порядок установки:</p>
                         <p>1. Зарегистрируйтесь на сайте edem.tv, оплатите подписку и получите доступ в личный кабинет.</p>
                         <p>2. Скачайте с этого сайта приложение для медиаплеера BuhtaPlayer.apk (кнопка "скачать .apk" внизу страницы)</p>
